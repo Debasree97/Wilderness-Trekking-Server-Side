@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const ObjectId = require("mongodb").ObjectId;
 
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -23,6 +24,8 @@ async function run() {
     await client.connect();
     const database = client.db("WildernessTrekking");
     const toursCollection = database.collection("tourDetails");
+    const bookingCollection = database.collection("bookingDetails");
+    console.log("db");
 
     //   get API: show all data
     app.get("/tours", async (req, res) => {
@@ -30,6 +33,7 @@ async function run() {
       const cursor = toursCollection.find(query);
       const tours = await cursor.toArray();
       res.send(tours);
+    });
 
       // get API : single data
       app.get("/tours/:id", async (req, res) => {
@@ -38,7 +42,14 @@ async function run() {
         const tourDetail = await toursCollection.findOne(query);
         res.send(tourDetail);
       });
-    });
+
+      // post API : booking information
+      app.post("/orders", async (req, res) => {
+        const booking = req.body;
+        const result = await bookingCollection.insertOne(booking);
+        console.log(result);
+        res.json(result);
+      });
   } finally {
     // await client.close();
   }
