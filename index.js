@@ -27,7 +27,7 @@ async function run() {
     const bookingCollection = database.collection("bookingDetails");
     console.log("db");
 
-    //   get API: show all data
+    //   get all data
     app.get("/tours", async (req, res) => {
       const query = {};
       const cursor = toursCollection.find(query);
@@ -35,23 +35,22 @@ async function run() {
       res.send(tours);
     });
 
-      // get API : single data
-      app.get("/tours/:id", async (req, res) => {
-        const id = req.params.id;
-        const query = { _id: ObjectId(id) };
-        const tourDetail = await toursCollection.findOne(query);
-        res.send(tourDetail);
-      });
+    // get single data
+    app.get("/tours/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const tourDetail = await toursCollection.findOne(query);
+      res.send(tourDetail);
+    });
 
-      // post API : booking information
-      app.post("/orders", async (req, res) => {
-        const booking = req.body;
-        const result = await bookingCollection.insertOne(booking);
-        console.log(result);
-        res.json(result);
-      });
-    
-    // all bookings
+    // post booking information
+    app.post("/orders", async (req, res) => {
+      const booking = req.body;
+      const result = await bookingCollection.insertOne(booking);
+      res.json(result);
+    });
+
+    // get all bookings
     app.get("/orders", async (req, res) => {
       const query = {};
       const cursor = bookingCollection.find(query);
@@ -60,14 +59,21 @@ async function run() {
     });
 
     // delete my booking
-     app.delete("/myorders/:id", async (req, res) => {
-       const id = req.params.id;
-       const query = { _id: ObjectId(id) };
-       const result = await bookingCollection.deleteOne(query);
-       res.send(result);
-     });
-    
-    
+    app.delete("/myorders/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await bookingCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // post new package information
+    app.post("/addorder", async (req, res) => {
+      const newTour = req.body;
+      const result = await toursCollection.insertOne(newTour);
+      res.json(result);
+    });
+
+
   } finally {
     // await client.close();
   }
