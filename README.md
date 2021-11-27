@@ -12,7 +12,7 @@ Node JS, Express JS, MongoDB
 
 ### Features
 
-1. There are two general route: Home, Signin
+1. There are two general routes: Home, Signin
 2. Google Sign-in authentication has been integrated.
 3. Private route has been implemented to prevent unauthorized user access to certain routes. 
 4. Signin will enable My Orders, Manage All Orders, Add new Package routes and Sign out button
