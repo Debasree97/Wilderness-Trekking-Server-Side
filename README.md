@@ -1,6 +1,6 @@
 # Wilderness Trekking
 
-Live Website Link: [Wilderness Trekking](https://assignment-11-authentication.web.app/).
+Live Website Link: [Wilderness Trekking](https://wilderness-trekking.netlify.app/).
 
 ## Description
 
